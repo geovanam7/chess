@@ -25,7 +25,7 @@ public class Board {
 
     public Piece piece (int row, int columns){
         if (!positionExist(row, columns)){
-            throw new BoardException("POSITION NOT ON THE BOARD");
+            throw new BoardException("posicao nao existente no tabuleiro");
         }
         return pieces[row][columns];
     }
