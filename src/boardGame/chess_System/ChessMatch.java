@@ -1,13 +1,12 @@
 package src.boardGame.chess_System;
 
 import src.boardGame.Board;
-import src.boardGame.Position;
-import src.boardGame.chess_System.Pieces.King;
-import src.boardGame.chess_System.Pieces.Rook;
+import src.boardGame.chess.pieces.King;
+import src.boardGame.chess.pieces.Rook;
 
 public class ChessMatch {
 
-    private Board board;
+    private final Board board;
 
     public ChessMatch(){
         board = new Board(8,8);
@@ -26,9 +25,15 @@ public ChessPiece[][] getPieces(){
                 return mat;
     }
 
+    private void PlaceNewPiece (char column, int row, ChessPiece piece){
+        board.placePiece(piece, new Chessposition(column,row).ToPosition());
+    }
+
     private void initialSetup(){
-        board.placePiece(new Rook(board, Color.WHITE), new Position(2,3));
-        board.placePiece(new King(board, Color.BLACK), new Position(0,4));
+       PlaceNewPiece('b',6, new Rook(board, Color.WHITE));
+       PlaceNewPiece('e',8, new King(board, Color.WHITE));
+       PlaceNewPiece('e',1, new King(board, Color.WHITE));
+
     }
 
 }
