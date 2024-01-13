@@ -5,11 +5,11 @@ import src.boardGame.Piece;
 
 public class ChessPiece extends Piece {
 
-    private Color color;
+    private final Color color;
 
     public ChessPiece(Board board, Color color) {
         super(board);
-        this.color = this.color;
+        this.color = color;
     }
 
     public Color getColor() {
