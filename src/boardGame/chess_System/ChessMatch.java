@@ -1,6 +1,8 @@
 package src.boardGame.chess_System;
 
 import src.boardGame.Board;
+import src.boardGame.Piece;
+import src.boardGame.Position;
 import src.boardGame.chess.pieces.King;
 import src.boardGame.chess.pieces.Rook;
 
@@ -25,19 +27,39 @@ public ChessPiece[][] getPieces(){
                 return mat;
     }
 
+    public ChessPiece performChessMove (Chessposition sourcePosistion, Chessposition targetPosition){
+        Position source = sourcePosistion.ToPosition();
+        Position target =  targetPosition.ToPosition();
+        validateSourcePosition(source);
+        Piece capturedPiece = makeMove (source,target);
+        return (ChessPiece)capturedPiece;
+    }
+
+    private Piece makeMove (Position source, Position target){
+        Piece p = board.RemovePiece(source);
+        Piece capturedPiece = board.RemovePiece(target);
+        board.placePiece(p,target);
+        return capturedPiece;
+    }
+    private void validateSourcePosition (Position position){
+        if(!board.ThereIsAPiece(position)){
+            throw new ChessException("não ha peca nessa poscao  ");
+        }
+    }
+
     private void placeNewPiece (char column, int row, ChessPiece piece){
         board.placePiece(piece, new Chessposition(column,row).ToPosition());
     }
 
     private void initialSetup(){
-   //  placeNewPiece('b', 6, new Rook(board, Color.WHITE));
-       // placeNewPiece('e', 8, new King(board, Color.BLACK));
+   //  placeNewPiece('b', 6, new Rook(board, Color.WHITE)); repetida
+       // placeNewPiece('e', 8, new King(board, Color.BLACK)); repetida
        placeNewPiece('e', 1, new Rook(board, Color.WHITE));
         placeNewPiece('c', 1, new Rook(board, Color.WHITE));
         placeNewPiece('c', 2, new Rook(board, Color.WHITE));
         placeNewPiece('d', 2, new Rook(board, Color.WHITE));
         placeNewPiece('e', 2, new Rook(board, Color.WHITE));
-      //  placeNewPiece('e', 1, new Rook(board, Color.WHITE));
+      //  placeNewPiece('e', 1, new Rook(board, Color.WHITE)); repetida
         placeNewPiece('d', 1, new King(board, Color.WHITE));
 
         placeNewPiece('c', 7, new Rook(board, Color.BLACK));

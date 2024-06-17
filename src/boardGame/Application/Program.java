@@ -2,13 +2,31 @@ package src.boardGame.Application;
 
 import src.boardGame.Board;
 import src.boardGame.chess_System.ChessMatch;
+import src.boardGame.chess_System.ChessPiece;
+import src.boardGame.chess_System.Chessposition;
+
+import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
-        UI.printBoard(chessMatch.getPieces());
+
+        while (true) {
+            UI.printBoard(chessMatch.getPieces());
+            System.out.println("  ");
+            System.out.println("Source:  ");
+            Chessposition source = UI.readChessPosition(sc);
 
 
+            System.out.println("  ");
+            System.out.println("Target:  ");
+            Chessposition target = UI.readChessPosition(sc);
+
+            ChessPiece capturedPiece = chessMatch.performChessMove(source,target);
+
+
+        }
     }
 }
