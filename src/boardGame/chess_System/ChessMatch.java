@@ -10,67 +10,80 @@ public class ChessMatch {
 
     private final Board board;
 
-    public ChessMatch(){
-        board = new Board(8,8);
+    public ChessMatch() {
+        board = new Board(8, 8);
         initialSetup();
     }
 
-public ChessPiece[][] getPieces(){
-        ChessPiece[][] mat = new ChessPiece [board.getRows()][board.getColumns()];
-                for (int i=0; i < board.getRows(); i++){
-                    for (int j = 0; j < board.getColumns(); j++) {
-                      mat[i][j] = (ChessPiece)board.piece(i,j);
+    public ChessPiece[][] getPieces() {
+        ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
+        for (int i = 0; i < board.getRows(); i++) {
+            for (int j = 0; j < board.getColumns(); j++) {
+                mat[i][j] = (ChessPiece) board.piece(i, j);
 
-                    }
-                    }
+            }
+        }
 
-                return mat;
+        return mat;
     }
 
-    public ChessPiece performChessMove (Chessposition sourcePosistion, Chessposition targetPosition){
+    public ChessPiece performChessMove(Chessposition sourcePosistion, Chessposition targetPosition) {
         Position source = sourcePosistion.ToPosition();
-        Position target =  targetPosition.ToPosition();
+        Position target = targetPosition.ToPosition();
         validateSourcePosition(source);
-        Piece capturedPiece = makeMove (source,target);
-        return (ChessPiece)capturedPiece;
+        validateTargetPosition(source, target);
+        Piece capturedPiece = makeMove(source, target);
+        return (ChessPiece) capturedPiece;
     }
 
-    private Piece makeMove (Position source, Position target){
+    private Piece makeMove(Position source, Position target) {
         Piece p = board.RemovePiece(source);
         Piece capturedPiece = board.RemovePiece(target);
-        board.placePiece(p,target);
+        board.placePiece(p, target);
         return capturedPiece;
     }
-    private void validateSourcePosition (Position position){
-        if(!board.ThereIsAPiece(position)){
+
+    private void validateSourcePosition(Position position) {
+        if (!board.ThereIsAPiece(position)) {
             throw new ChessException("não ha peca nessa poscao  ");
+        }
+        if (!board.piece(position).isThereAnyPossibleMove()) {
+           throw new ChessException("não existe movimenos para a peca escolhida");
+    }
+    }
+
+    private void validateTargetPosition(Position source, Position target) {
+        if (!board.piece(source).possibleMove(target)) {
+            throw new ChessException("The chosen piece can't move to target position");
         }
     }
 
-    private void placeNewPiece (char column, int row, ChessPiece piece){
-        board.placePiece(piece, new Chessposition(column,row).ToPosition());
+    private void placeNewPiece(char column, int row, ChessPiece piece) {
+        board.placePiece(piece, new Chessposition(column, row).ToPosition());
     }
 
-    private void initialSetup(){
-   //  placeNewPiece('b', 6, new Rook(board, Color.WHITE)); repetida
-       // placeNewPiece('e', 8, new King(board, Color.BLACK)); repetida
-       placeNewPiece('e', 1, new Rook(board, Color.WHITE));
-        placeNewPiece('c', 1, new Rook(board, Color.WHITE));
-        placeNewPiece('c', 2, new Rook(board, Color.WHITE));
-        placeNewPiece('d', 2, new Rook(board, Color.WHITE));
-        placeNewPiece('e', 2, new Rook(board, Color.WHITE));
-      //  placeNewPiece('e', 1, new Rook(board, Color.WHITE)); repetida
-        placeNewPiece('d', 1, new King(board, Color.WHITE));
 
-        placeNewPiece('c', 7, new Rook(board, Color.BLACK));
-        placeNewPiece('c', 8, new Rook(board, Color.BLACK));
-        placeNewPiece('d', 7, new Rook(board, Color.BLACK));
-        placeNewPiece('e', 7, new Rook(board, Color.BLACK));
-        placeNewPiece('e', 8, new Rook(board, Color.BLACK));
-        placeNewPiece('d', 8, new King(board, Color.BLACK));
+        private void initialSetup () {
 
+
+            placeNewPiece('e', 1, new Rook(board, Color.WHITE));
+            placeNewPiece('c', 1, new Rook(board, Color.WHITE));
+            placeNewPiece('c', 2, new Rook(board, Color.WHITE));
+            placeNewPiece('d', 2, new Rook(board, Color.WHITE));
+            placeNewPiece('e', 2, new Rook(board, Color.WHITE));
+            //  placeNewPiece('e', 1, new Rook(board, Color.WHITE)); repetida
+            placeNewPiece('d', 1, new King(board, Color.WHITE));
+
+            placeNewPiece('c', 7, new Rook(board, Color.BLACK));
+            placeNewPiece('c', 8, new Rook(board, Color.BLACK));
+            placeNewPiece('d', 7, new Rook(board, Color.BLACK));
+            placeNewPiece('e', 7, new Rook(board, Color.BLACK));
+            placeNewPiece('e', 8, new Rook(board, Color.BLACK));
+            placeNewPiece('d', 8, new King(board, Color.BLACK));
+
+        }
     }
-}
+
 
 
 

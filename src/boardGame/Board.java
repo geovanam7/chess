@@ -1,5 +1,8 @@
 package src.boardGame;
 
+import src.boardGame.chess_System.ChessPiece;
+import src.boardGame.chess_System.Chessposition;
+
 public class Board {
 
     private int rows;
@@ -30,15 +33,21 @@ public class Board {
         return pieces[row][columns];
     }
     public Piece piece (Position position) {
-        return pieces[position.getRow()][position.getColumns()];
+        if (!positionExists(position)) {
+            throw new BoardException("Position not on the board");
+        }
+        return pieces[position.getRow()][position.getColumn()];
     }
 
-    public void placePiece(Piece piece, Position position ){
-        if (ThereIsAPiece(position)){
+
+    public void placePiece(Piece piece, Position position) {
+        System.out.println("Attempting to place piece at position: " + position);
+        if (ThereIsAPiece(position)) {
             throw new BoardException("there is already a piece on position " + position);
         }
-        pieces[position.getRow()][position.getColumns()]=piece;
-        piece.position=position;
+        pieces[position.getRow()][position.getColumn()] = piece;
+        piece.position = position;
+        System.out.println("Piece placed at position: " + position);
     }
 
     public Piece RemovePiece (Position position){
@@ -50,7 +59,7 @@ public class Board {
         }
         Piece aux = piece(position);
         aux.position = null;
-        pieces[position.getColumns()][position.getRow()] = null;
+        pieces[position.getRow()][position.getColumn()] = null;
         return aux;
 
     }
@@ -60,7 +69,7 @@ public class Board {
     }
 
     public boolean positionExists (Position position){
-        return positionExist(position.getRow(), position.getColumns());
+        return positionExist(position.getRow(), position.getColumn());
     }
 
     public boolean ThereIsAPiece (Position position){
@@ -70,5 +79,6 @@ public class Board {
         return piece(position) != null ;
 
     }
+
 
 }
