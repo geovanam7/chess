@@ -25,7 +25,7 @@ public abstract class Piece {
         if (mat == null) {
             return false;
         }
-        for (int i = 0; i < mat.length; i++) { //NullpointerException
+        for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat.length; j++) {
                if (mat[i][j]){
                    return true;

@@ -9,7 +9,7 @@ public class Chessposition {
 
     public Chessposition (char column, int row){
         if (column < 'a' || column > 'h' || row < 1 || row > 8){
-            throw new ChessException("posicao nao existente");
+            throw new ChessException("position does not exist");
         }
     this.row=row;
         this.column=column;

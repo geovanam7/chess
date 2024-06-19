@@ -12,7 +12,7 @@ public class Board {
 
     public Board(int rows, int columns) {
         if (rows <1 || columns < 1){
-            throw  new BoardException( "erro ao criar o tabuleiro, necessario ao menos 1");
+            throw  new BoardException( "error when creating the board, at least 1");
         }
         this.rows = rows;
         this.columns=columns;
@@ -28,7 +28,7 @@ public class Board {
 
     public Piece piece (int row, int columns){
         if (!positionExist(row, columns)){
-            throw new BoardException("posicao nao existente no tabuleiro");
+            throw new BoardException("non-existent position on the board");
         }
         return pieces[row][columns];
     }
@@ -52,7 +52,7 @@ public class Board {
 
     public Piece RemovePiece (Position position){
         if (!positionExists(position)){
-            throw new BoardException("posicao nao existente no tabuleiro");
+            throw new BoardException("non-existent position on the board");
         }
         if (piece(position) == null){
             return null;

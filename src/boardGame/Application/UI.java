@@ -1,5 +1,6 @@
 package src.boardGame.Application;
 
+import src.boardGame.chess_System.ChessMatch;
 import src.boardGame.chess_System.ChessPiece;
 import src.boardGame.chess_System.Chessposition;
 import src.boardGame.chess_System.Color;
@@ -41,11 +42,18 @@ public class UI {
        return new Chessposition(column,row);
     }
       catch (RuntimeException e){
-          throw new InputMismatchException( "Erro ao ler posicao do tabuleiro");
+          throw new InputMismatchException( "Error reading board position");
 
       }
     }
 
+    public static void PrintMatch (ChessMatch chessMatch){
+        printBoard(chessMatch.getPieces());
+        System.out.println (" ");
+        System.out.println ("Turno: " + chessMatch.getTurn());
+        System.out.println ("Waiting player: " + chessMatch.getCurrentPlayer());
+
+    }
 
     public static void printBoard(ChessPiece[][] pieces) {
         for (int i = 0; i < pieces.length; i++) {
