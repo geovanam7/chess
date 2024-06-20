@@ -41,13 +41,11 @@ public class Board {
 
 
     public void placePiece(Piece piece, Position position) {
-        System.out.println("Attempting to place piece at position: " + position);
         if (ThereIsAPiece(position)) {
             throw new BoardException("there is already a piece on position " + position);
         }
         pieces[position.getRow()][position.getColumn()] = piece;
         piece.position = position;
-        System.out.println("Piece placed at position: " + position);
     }
 
     public Piece RemovePiece (Position position){
