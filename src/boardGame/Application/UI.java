@@ -50,15 +50,30 @@ public class UI {
       }
     }
 
-    public static void PrintMatch (ChessMatch chessMatch, List<ChessPiece> captured){
+    public static void PrintMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
         printBoard(chessMatch.getPieces());
-        System.out.println (" ");
+        System.out.println();
         printCapturedPieces(captured);
-        System.out.println("   ");
-        System.out.println ("Turno: " + chessMatch.getTurn());
-        System.out.println ("Waiting player: " + chessMatch.getCurrentPlayer());
+        System.out.println();
+        System.out.println("Turn: " + chessMatch.getTurn());
+        System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
+        if (chessMatch.getCheck()) {
+            System.out.println("CHECK!!!");
+        }
 
-    }
+      //public void printCapturedPieces() {
+        //    System.out.print("Captured pieces: ");
+        //    System.out.print("White: ");
+        //    System.out.print(ANSI_WHITE);
+        //    System.out.print(capturedPieces.stream().filter(p -> p.getColor() == Color.WHITE).collect(Collectors.toList()));
+        //    System.out.print(ANSI_RESET);
+        //    System.out.print(" Black: ");
+        //    System.out.print(ANSI_YELLOW);
+        //    System.out.println(capturedPieces.stream().filter(p -> p.getColor() == Color.BLACK).collect(Collectors.toList()));
+        //    System.out.print(ANSI_RESET);
+        //}
+        //   outra lógica 
+}
 
     public static void printBoard(ChessPiece[][] pieces) {
         for (int i = 0; i < pieces.length; i++) {

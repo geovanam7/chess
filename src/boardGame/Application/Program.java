@@ -40,7 +40,8 @@ public class Program {
                     captured.add(capturedPiece);
                 }
 
-            } catch (ChessException | InputMismatchException e) {
+            }
+            catch(ChessException | InputMismatchException e){
                 System.out.println(e.getMessage());
                 sc.nextLine();
             }
