@@ -97,9 +97,11 @@ public class ChessMatch {
 
 
     private Piece makeMove(Position source, Position target) {
-        Piece p = board.RemovePiece(source);
+        ChessPiece p = (ChessPiece) board.RemovePiece(source);
+        p.increaseMovCount();
         Piece capturedPiece = board.RemovePiece(target);
         board.placePiece(p, target);
+
         if (capturedPiece != null) {
             piecesOnTheBoard.remove(capturedPiece);
             capturedPieces.add((ChessPiece) capturedPiece);
@@ -108,7 +110,8 @@ public class ChessMatch {
     }
 
     private void UndoMove (Position source, Position target, Piece capturedPiece){
-        Piece p = board.RemovePiece(target);
+        ChessPiece p = (ChessPiece) board.RemovePiece(target);
+        p.decreaseMovCount();
         board.placePiece(p,source);
 
         if (capturedPiece != null){
