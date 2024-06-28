@@ -4,7 +4,6 @@ import src.boardGame.Board;
 import src.boardGame.Piece;
 import src.boardGame.Position;
 import src.boardGame.chess.pieces.*;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -128,11 +127,13 @@ public class ChessMatch {
             throw new IllegalStateException("There is no piece to be promoted");
         }
         if (!type.equals("B") && !type.equals("N") && !type.equals("Q") && !type.equals("R")){
-            throw new InvalidParameterException("Invalid type for promotion");
+            return promoted;
         }
     Position pos = promoted.getChessPosition().ToPosition();
     Piece p = board.RemovePiece(pos);
     piecesOnTheBoard.remove(p);
+
+
      ChessPiece newPiece= newPiece(type, promoted.getColor());
      board.placePiece(newPiece,pos);
      piecesOnTheBoard.add (newPiece);
